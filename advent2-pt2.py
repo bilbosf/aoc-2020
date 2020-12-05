@@ -8,8 +8,7 @@ Input: password database with "<criterium>: <password>" pairs:
 2-9 c: ccccccccc
 ###
 
-- The criterium "n1-n2 c:" Means the password must contain the letter c at least n1 times and 
-  at most n2 times in order to be valid.
+- The criterium "n1-n2 c:" Means the password must contain the letter c in exactly one of the two positions (either n1 or n2, not both). The positions start at index 1.
 - Output: number of valid passwords
 """
 import click
