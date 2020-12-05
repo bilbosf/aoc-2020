@@ -14,6 +14,7 @@ Input: List of numbers, one per line
 Output: product of the 2 numbers in the list that add up to 2020
 """
 import click
+from pathlib import Path
 
 def search(number_list):
     for n in number_list:
@@ -24,7 +25,8 @@ def search(number_list):
 @click.command()
 @click.option("--filename", default="input/day1.txt")
 def main(filename):
-    with open(filename) as f:
+    filepath = Path(filename)
+    with open(filepath) as f:
         number_list = f.read()
         number_list = number_list[:-1].split("\n")
         number_list = [int(x) for x in number_list]

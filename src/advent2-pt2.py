@@ -8,12 +8,11 @@ Input: password database with "<criterium>: <password>" pairs:
 2-9 c: ccccccccc
 ###
 
-- The criterium "n1-n2 c:" Means the password must contain the letter c at least n1 times and 
-  at most n2 times in order to be valid.
+- The criterium "n1-n2 c:" Means the password must contain the letter c in exactly one of the two positions (either n1 or n2, not both). The positions start at index 1.
 - Output: number of valid passwords
 """
 import click
-
+from pathlib import Path
 
 def parse(entry):
     '''
@@ -31,12 +30,13 @@ def parse(entry):
 def is_valid(entry):
     n1, n2, char, password = parse(entry)
     ocurrences = password.count(char)
-    return ocurrences >= n1 and ocurrences <= n2
+    return (password[n1-1]==char) != (password[n2-1]==char) #XOR operation
 
 @click.command()
 @click.option("--filename", default="input/day2.txt")
 def main(filename):
-    with open(filename) as f:
+    filepath = Path(filename)
+    with open(filepath) as f:
         password_list = f.read()
         password_list = password_list[:-1].split("\n")
 

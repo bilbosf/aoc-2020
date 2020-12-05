@@ -24,7 +24,7 @@ iyr:2011 ecl:brn hgt:59in
 - Output: number of valid passports
 """
 import click
-
+from pathlib import Path
 
 def is_valid(passport):
     keys_in_passport = set()
@@ -46,18 +46,16 @@ def is_valid(passport):
 @click.command()
 @click.option("--filename", default="input/day4.txt")
 def main(filename):
-    with open(filename) as f:
+    filepath = Path(filename)
+    with open(filepath) as f:
         passport_list = f.read()
         passport_list = passport_list[:-1].split("\n\n")
 
     count = 0
     for passport in passport_list:
-        print(passport)
         valid = is_valid(passport)
         if valid:
             count += 1
-        print("Is valid: {}".format(valid))
-        print("----------------------")
 
     print("Valid count: {}".format(count))
 

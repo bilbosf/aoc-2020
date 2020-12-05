@@ -24,10 +24,10 @@ BBBFFBFLRR
 - Each 10-character sequence completely specifies a seat in the plane
 - The seat ID can be calculated by: ID = 8*row + column
 
-Output: Highest seat ID among all the boarding passes
+Output: The seat ID that is NOT in the input file, but both its neighbors (ID-1 and ID+1) are
 """
 import click
-
+from pathlib import Path
 
 def get_ID(seat):
     '''
@@ -50,17 +50,22 @@ def get_ID(seat):
 @click.command()
 @click.option("--filename", default="input/day5.txt")
 def main(filename):
-    with open(filename) as f:
+    filepath = Path(filename)
+    with open(filepath) as f:
         seat_list = f.read()
         seat_list = seat_list[:-1].split("\n")
 
-    highest = 0
+    possible_IDs = [x for x in range(1024)]
+
     for seat in seat_list:
         seat_ID = get_ID(seat)
-        if seat_ID > highest:
-            highest = seat_ID
-        
-    print(f"Highest ID: {highest}")
+        possible_IDs.remove(seat_ID)
+
+    for n in possible_IDs:
+        if n+1 in possible_IDs or n-1 in possible_IDs:
+            continue
+        else:
+            print(f"My ID: {n}")
 
 
 if __name__ == "__main__":

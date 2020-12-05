@@ -1,19 +1,26 @@
 """
-Template from https://github.com/fbidu/aoc-2020
+Template based on fbidu's template on https://github.com/fbidu/aoc-2020
 Day 0
+
+Input:
+
+###
+Input file model
+###
+
+
 """
 import click
-
+from pathlib import Path
 
 @click.command()
-@click.option("--filename", default="input.txt")
+@click.option("--filename", default="../input/day0.txt")
 def main(filename):
-    with open(filename) as f:
-        number_list = f.read()
-        number_list = number_list[:-1].split("\n")
+    filepath = Path(filename)
+    with open(filepath) as f:
+        input_list = f.read()
+        input_list = input_list[:-1].split("\n")
 
-    result = hashed_search(number_list)
-    print(result[0] * result[1])
 
 
 if __name__ == "__main__":

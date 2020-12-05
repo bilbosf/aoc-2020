@@ -49,6 +49,7 @@ In this example, you would encounter 7 trees.
 
 import click
 from inf_list import InfList
+from pathlib import Path
 
 def get_trees(map_list, slope):
     '''
@@ -70,7 +71,8 @@ def get_trees(map_list, slope):
 @click.command()
 @click.option("--filename", default="input/day3.txt")
 def main(filename):
-    with open(filename) as f:
+    filepath = Path(filename)
+    with open(filepath) as f:
         map_list = f.read()
         map_list = map_list[:-1].split("\n")
 
