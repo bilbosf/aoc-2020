@@ -14,7 +14,7 @@ import click
 from pathlib import Path
 
 @click.command()
-@click.option("--filename", default="../input/day0.txt")
+@click.option("--filename", default="input/day0.txt")
 def main(filename):
     filepath = Path(filename)
     with open(filepath) as f:
